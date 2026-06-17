@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Consent Mode v2 -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});(function(){try{var k='cookie-consent-v2',o='cookie-consent';var c=localStorage.getItem(k);if(!c&&localStorage.getItem(o)==='1')c='granted';if(c){var s=c==='granted'?'granted':'denied';gtag('consent','update',{'analytics_storage':s,'ad_storage':s,'ad_user_data':s,'ad_personalization':s});}}catch(e){}})();</script>
+<!-- End Consent Mode v2 -->
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
 new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
@@ -19,7 +22,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#7c3aed">
-<meta name="description" content="歴史上の出来事を正しい年代順に並び替えるパズルゲーム。日本史・世界史それぞれ30セット収録。歴史の流れを楽しく覚えよう！登録不要・完全無料でご利用いただけます。スマートフォン・PCどちらでも無料でお使いいただけます。">
+<meta name="description" content="歴史上の出来事を年代順に並べるパズルゲーム。日本史・世界史対応、5段階難易度。年号暗記なしで時代の流れを把握。スコアシミュレーション機能で比較学習が可能。完全無料でプレイ可能。">
+<meta name="author" content="AppADayCreator">
 <link rel="canonical" href="https://appadaycreator.com/history-timeline-game/">
 <meta property="og:title" content="タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史">
 <meta property="og:description" content="歴史上の出来事を年代順に並び替えるパズルゲーム。日本史・世界史対応！">
@@ -28,11 +32,28 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 <meta property="og:locale" content="ja_JP" />
 <meta property="og:image" content="https://appadaycreator.com/history-timeline-game/ogp.png">
 <meta property="og:site_name" content="appadaycreator" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "タイムラインマスター | 歴史年代パズルゲーム", "url": "https://appadaycreator.com/history-timeline-game/", "description": "歴史上の出来事を正しい年代順に並べ替えるパズルゲーム", "applicationCategory": "GameApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "タイムラインマスター | 歴史年代パズルゲーム",
+  "url": "https://appadaycreator.com/history-timeline-game/",
+  "description": "歴史上の出来事を正しい年代順に並べ替えるパズルゲーム",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  },
+  "inLanguage": "ja"
+}
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427583028015858" crossorigin="anonymous"></script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","s3t9vl8h3v");</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <style>
   body { background: #f8fafc; }
   .parchment { background: linear-gradient(135deg, #f5e6c8 0%, #ede0b0 50%, #f0d89a 100%); }
@@ -53,6 +74,14 @@ button, .btn, .btn-primary, .option-btn, [role="button"] { min-height: 48px; min
   .max-w-lg { padding-left: 1rem; padding-right: 1rem; }
 }
 
+/* M4: グラフのモバイルレスポンシブ改善 */
+@media (max-width: 480px) {
+  #chartSection .bg-white { padding-left: 1.5rem; padding-right: 1.5rem; }
+  #chartSection .bg-white > div[style*="height"] { min-height: 250px !important; height: 250px !important; }
+  #chartSection table { font-size: 11px; }
+  #chartSection table th, #chartSection table td { padding: 6px 8px; }
+}
+
 @media print{
   header,footer,nav,button,.no-print,
   [class*="share"],[class*="affiliate"],[id*="share"],
@@ -66,15 +95,23 @@ button, .btn, .btn-primary, .option-btn, [role="button"] { min-height: 48px; min
 .card{background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.08);overflow:hidden;}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
 
+/* M4・P3: スコア計算説明表の可視性向上 */
+#chartSection table { border-collapse: collapse; }
+#chartSection table th { background: #1e40af; color: white; font-weight: 700; }
+#chartSection table tr:nth-child(even) { background: #dbeafe; }
+#chartSection table tr:nth-child(odd) { background: #f0f9ff; }
+#chartSection table td { border: 1px solid #60a5fa; padding: 8px; }
+
 /* AdSense unfilled: collapse empty ad slots */
 ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!important;height:0!important}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"このサービスは無料ですか？","acceptedAnswer":{"@type":"Answer","text":"はい、完全無料・登録不要でご利用いただけます。"}},{"@type":"Question","name":"入力データはどこに保存されますか？","acceptedAnswer":{"@type":"Answer","text":"お使いのデバイス内にのみ保存されます。外部送信は行いません。"}},{"@type":"Question","name":"結果はどのくらい正確ですか？","acceptedAnswer":{"@type":"Answer","text":"あくまで参考情報です。重要な判断の際は専門家にご相談ください。"}},{"@type":"Question","name":"どのような人が使っていますか？","acceptedAnswer":{"@type":"Answer","text":"初心者から専門家まで、多くの方にご利用いただいています。特に決断が必要な場面で活躍します。"}},{"@type":"Question","name":"結果をシェアできますか？","acceptedAnswer":{"@type":"Answer","text":"はい、診断結果はスクリーンショットやURLで友人・家族とシェアできます。"}},{"@type":"Question","name":"有料プランはありますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ、すべての機能を完全無料でご利用いただけます。"}},{"@type":"Question","name":"スコアは保存されますか？","acceptedAnswer":{"@type":"Answer","text":"スコアはブラウザのローカルストレージに保存されます。ブラウザのデータを削除するとリセットされます。"}},{"@type":"Question","name":"オフラインで遊べますか？","acceptedAnswer":{"@type":"Answer","text":"初回表示後はキャッシュを利用して遊べる場合があります。ただし一部の機能はオンライン接続が必要です。"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"タイムラインマスターのスコアは保存されますか？","acceptedAnswer":{"@type":"Answer","text":"スコアはブラウザのローカルストレージに保存されます。同じブラウザを使う限りハイスコアが保持されます。ブラウザのデータを削除するとリセットされます。"}},{"@type":"Question","name":"難易度を自由に選べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、ゲーム開始前に5段階の難易度から選択できます。超初級（3問）～エキスパート（7問）まで選べます。"}},{"@type":"Question","name":"日本史と世界史の両方で遊べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、ゲーム開始前に日本史または世界史を選択できます。各24セットの問題が用意されています。"}},{"@type":"Question","name":"スマートフォンで遊べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、スマートフォン・タブレット・PCのすべてでご利用いただけます。ドラッグ&ドロップまたはタップで操作できます。"}},{"@type":"Question","name":"スコアシミュレーター機能とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"異なる難易度と正答率での推定スコアを計算できる機能です。「もし難易度ハードで70%の正答率なら何点？」のようなシミュレーションが可能です。"}}]}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "診断ツール"
+  "@type": "SoftwareApplication",
+  "name": "タイムラインマスター | 歴史年代パズルゲーム",
+  "applicationCategory": "GameApplication"
 }
 </script>
 <script type="application/ld+json">
@@ -84,7 +121,11 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
   "name": "appadaycreator",
   "url": "https://appadaycreator.com",
   "logo": "https://appadaycreator.com/logo.png",
-  "description": "無料Webサービス・診断ツール 180種類以上を運営"
+  "description": "無料Webサービス・診断ツール 180種類以上を運営",
+  "sameAs": [
+    "https://twitter.com/appadaycreate",
+    "https://appadaycreator.com"
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -122,7 +163,7 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
 @media(max-width:480px){button,[class*=btn]{min-height:48px!important;font-size:15px!important;}input,select,textarea{font-size:16px!important;min-height:44px!important;}[class*=card],[class*=max-w]{padding:16px!important;}}
 </style>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史の使い方","step":[{"@type":"HowToStep","position":1,"name":"難易度・モードを選択","text":"プレイしたい難易度やゲームモードを選んで設定する"},{"@type":"HowToStep","position":2,"name":"ゲームを開始する","text":"「スタート」ボタンを押してゲームを始める"},{"@type":"HowToStep","position":3,"name":"問題・課題に回答する","text":"表示される問題や課題に答えて得点を積み上げる"},{"@type":"HowToStep","position":4,"name":"結果・スコアを確認する","text":"ゲーム終了後にスコアと正答率・ランキングを確認する"},{"@type":"HowToStep","position":5,"name":"記録を更新して上達する","text":"繰り返しプレイして自己ベストを更新し、スキルアップを目指す"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史の使い方","step":[{"@type":"HowToStep","position":1,"name":"歴史の種類を選択","text":"日本史または世界史を選んでスタート"},{"@type":"HowToStep","position":2,"name":"難易度を選択","text":"5段階の難易度（超初級～エキスパート）から選択"},{"@type":"HowToStep","position":3,"name":"歴史イベントを並び替える","text":"表示された出来事を古い順に配置する"},{"@type":"HowToStep","position":4,"name":"スコアと正答率を確認","text":"ゲーム終了後に詳細なスコア情報を表示"},{"@type":"HowToStep","position":5,"name":"スコアシミュレーターで比較","text":"異なる難易度・正答率での推定スコアを計算・比較"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://appadaycreator.com/"},{"@type":"ListItem","position":2,"name":"ゲーム","item":"https://appadaycreator.com/category/game/"},{"@type":"ListItem","position":3,"name":"タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史","item":"https://appadaycreator.com/history-timeline-game/"}]}</script>
 </head>
 <body class="min-h-screen">
@@ -277,39 +318,89 @@ window.addEventListener('unhandledrejection',function(e){console.warn('Rejection
       </div>
 
       <div class="bg-blue-50 rounded-xl p-4 shadow-sm border border-blue-200">
-        <h3 class="text-sm font-bold text-blue-900 mb-3">⚙️ スコア計算方法</h3>
-        <p class="text-xs text-blue-800 mb-3">難易度ごとに正解1問あたりのポイントが異なります。難易度が高いほど多くのポイントが得られます。</p>
-        <table class="w-full text-xs border-collapse">
-          <tr class="bg-blue-100">
-            <th class="border border-blue-300 px-2 py-2 text-left font-bold text-blue-900">難易度</th>
-            <th class="border border-blue-300 px-2 py-2 text-right font-bold text-blue-900">1問のポイント</th>
-          </tr>
-          <tr class="bg-white">
-            <td class="border border-blue-200 px-2 py-2 text-blue-800">超初級（3問）</td>
-            <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">10点</td>
-          </tr>
-          <tr class="bg-blue-50">
-            <td class="border border-blue-200 px-2 py-2 text-blue-800">初級（4問）</td>
-            <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">15点</td>
-          </tr>
-          <tr class="bg-white">
-            <td class="border border-blue-200 px-2 py-2 text-blue-800">中級（5問）</td>
-            <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">20点</td>
-          </tr>
-          <tr class="bg-blue-50">
-            <td class="border border-blue-200 px-2 py-2 text-blue-800">上級（6問）</td>
-            <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">30点</td>
-          </tr>
-          <tr class="bg-white">
-            <td class="border border-blue-200 px-2 py-2 text-blue-800">エキスパート（7問）</td>
-            <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">50点</td>
-          </tr>
-        </table>
+        <div class="flex gap-2 mb-3">
+          <button id="tabScoreCalc" class="text-xs font-bold px-3 py-1 rounded bg-blue-200 text-blue-900 cursor-pointer" onclick="switchResultTab('scoreCalc')">⚙️ スコア計算方法</button>
+          <button id="tabSimulator" class="text-xs font-bold px-3 py-1 rounded bg-blue-100 text-blue-700 cursor-pointer" onclick="switchResultTab('simulator')">🎯 スコアシミュレーター</button>
+        </div>
+
+        <div id="scoreCalcBox" style="display:block">
+          <p class="text-xs text-blue-800 mb-3">難易度ごとに正解1問あたりのポイントが異なります。難易度が高いほど多くのポイントが得られます。</p>
+          <table class="w-full text-xs border-collapse">
+            <tr class="bg-blue-100">
+              <th class="border border-blue-300 px-2 py-2 text-left font-bold text-blue-900">難易度</th>
+              <th class="border border-blue-300 px-2 py-2 text-right font-bold text-blue-900">1問のポイント</th>
+            </tr>
+            <tr class="bg-white">
+              <td class="border border-blue-200 px-2 py-2 text-blue-800">超初級（3問）</td>
+              <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">10点</td>
+            </tr>
+            <tr class="bg-blue-50">
+              <td class="border border-blue-200 px-2 py-2 text-blue-800">初級（4問）</td>
+              <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">15点</td>
+            </tr>
+            <tr class="bg-white">
+              <td class="border border-blue-200 px-2 py-2 text-blue-800">中級（5問）</td>
+              <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">20点</td>
+            </tr>
+            <tr class="bg-blue-50">
+              <td class="border border-blue-200 px-2 py-2 text-blue-800">上級（6問）</td>
+              <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">30点</td>
+            </tr>
+            <tr class="bg-white">
+              <td class="border border-blue-200 px-2 py-2 text-blue-800">エキスパート（7問）</td>
+              <td class="border border-blue-200 px-2 py-2 text-right font-bold text-blue-800">50点</td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="simulatorBox" style="display:none">
+          <p class="text-xs text-blue-800 mb-3">異なる難易度・正答率での「もし〜だったら」スコアをシミュレーション。</p>
+          <div class="space-y-2 text-xs">
+            <div>
+              <label class="text-blue-900 font-bold">難易度:</label>
+              <select id="simDifficulty" class="w-full px-2 py-1 border border-blue-300 rounded text-blue-900" onchange="updateSimulator()">
+                <option value="veryeasy">超初級（3問）</option>
+                <option value="easy" selected>初級（4問）</option>
+                <option value="medium">中級（5問）</option>
+                <option value="hard">上級（6問）</option>
+                <option value="expert">エキスパート（7問）</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-blue-900 font-bold">正答率:</label>
+              <div class="flex items-center gap-2">
+                <input id="simAccuracy" type="range" min="0" max="100" step="10" value="70" class="flex-1" onchange="updateSimulator()">
+                <span id="simAccDisplay" class="text-blue-900 font-bold w-12 text-right">70%</span>
+              </div>
+            </div>
+            <div class="bg-blue-100 rounded p-2 text-center">
+              <p class="text-xs text-blue-600 mb-1">推定スコア</p>
+              <p class="text-lg font-bold text-blue-900" id="simScore">105点</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+              <button onclick="compareAll()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded">全難易度比較</button>
+              <button onclick="resetSimulator()" class="bg-blue-200 hover:bg-blue-300 text-blue-900 text-xs font-bold py-1 px-2 rounded">リセット</button>
+            </div>
+            <div id="compareTable" style="display:none;margin-top:8px">
+              <table class="w-full text-xs border-collapse">
+                <tr class="bg-blue-100">
+                  <th class="border border-blue-300 px-1 py-1 text-left font-bold text-blue-900">難易度</th>
+                  <th class="border border-blue-300 px-1 py-1 text-right font-bold text-blue-900">推定スコア</th>
+                </tr>
+                <tr class="bg-white"><td class="border border-blue-200 px-1 py-1">超初級</td><td class="border border-blue-200 px-1 py-1 text-right font-bold" id="comp-veryeasy">0点</td></tr>
+                <tr class="bg-blue-50"><td class="border border-blue-200 px-1 py-1">初級</td><td class="border border-blue-200 px-1 py-1 text-right font-bold" id="comp-easy">0点</td></tr>
+                <tr class="bg-white"><td class="border border-blue-200 px-1 py-1">中級</td><td class="border border-blue-200 px-1 py-1 text-right font-bold" id="comp-medium">0点</td></tr>
+                <tr class="bg-blue-50"><td class="border border-blue-200 px-1 py-1">上級</td><td class="border border-blue-200 px-1 py-1 text-right font-bold" id="comp-hard">0点</td></tr>
+                <tr class="bg-white"><td class="border border-blue-200 px-1 py-1">エキスパート</td><td class="border border-blue-200 px-1 py-1 text-right font-bold" id="comp-expert">0点</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="border border-amber-300 rounded-xl p-4 bg-amber-50 mb-4">
-      <p class="text-sm font-bold text-amber-800 mb-2">📚 歴史をもっと学ぼう！</p>
+      <p class="text-sm font-bold text-amber-800 mb-2">📚 歴史をもっと学ぼう！<span class="text-xs text-amber-600 ml-2">※広告リンクを含みます</span></p>
       <a href="https://www.amazon.co.jp/s?k=歴史学習漫画+参考書&tag=appadaycrea0f-22" target="_blank" class="block bg-orange-500 hover:bg-orange-600 text-white text-center py-2 px-4 rounded-lg text-sm font-medium mb-2 js-track-affiliate" data-platform="Amazon" data-item-name="歴史学習漫画参考書" data-link-type="affiliate_link" rel="noopener noreferrer">
         🛒 Amazon で歴史漫画・参考書を探す
       </a>
@@ -664,6 +755,9 @@ function nextQuestion() {
 }
 
 function showResult() {
+  // M4: Chart.js データラベルプラグイン登録
+  Chart.register(ChartDataLabels);
+
   document.getElementById('gameScreen').classList.add('hidden');
   document.getElementById('resultScreen').classList.remove('hidden');
 
@@ -749,9 +843,10 @@ function showResult() {
         plugins: {
           legend: { display: false },
           datalabels: {
+            display: true,
             anchor: 'end',
             align: 'end',
-            font: { size: 12, weight: 'bold' },
+            font: { size: window.innerWidth < 480 ? 10 : 12, weight: 'bold' },
             color: '#374151'
           }
         },
@@ -796,9 +891,10 @@ function showResult() {
         plugins: {
           legend: { display: false },
           datalabels: {
+            display: true,
             anchor: 'end',
             align: 'end',
-            font: { size: 12, weight: 'bold' },
+            font: { size: window.innerWidth < 480 ? 10 : 12, weight: 'bold' },
             color: '#374151'
           }
         },
@@ -829,6 +925,53 @@ function showStart() {
   document.getElementById('startScreen').classList.remove('hidden');
 }
 
+// M7: スコアシミュレーター機能
+function switchResultTab(tab) {
+  document.getElementById('scoreCalcBox').style.display = tab === 'scoreCalc' ? 'block' : 'none';
+  document.getElementById('simulatorBox').style.display = tab === 'simulator' ? 'block' : 'none';
+  document.getElementById('tabScoreCalc').className = tab === 'scoreCalc' ? 'text-xs font-bold px-3 py-1 rounded bg-blue-200 text-blue-900 cursor-pointer' : 'text-xs font-bold px-3 py-1 rounded bg-blue-100 text-blue-700 cursor-pointer';
+  document.getElementById('tabSimulator').className = tab === 'simulator' ? 'text-xs font-bold px-3 py-1 rounded bg-blue-200 text-blue-900 cursor-pointer' : 'text-xs font-bold px-3 py-1 rounded bg-blue-100 text-blue-700 cursor-pointer';
+}
+
+function updateSimulator() {
+  const diff = document.getElementById('simDifficulty').value;
+  const acc = parseInt(document.getElementById('simAccuracy').value);
+  document.getElementById('simAccDisplay').textContent = acc + '%';
+
+  const scoreMap = {veryeasy: 10, easy: 15, medium: 20, hard: 30, expert: 50};
+  const countMap = {veryeasy: 3, easy: 4, medium: 5, hard: 6, expert: 7};
+  const pointsPerQ = scoreMap[diff];
+  const count = countMap[diff];
+  const maxScore = pointsPerQ * count;
+  const simulatedScore = Math.round(maxScore * acc / 100);
+  document.getElementById('simScore').textContent = simulatedScore + '点';
+}
+
+function compareAll() {
+  const acc = parseInt(document.getElementById('simAccuracy').value);
+  const scoreMap = {veryeasy: 10, easy: 15, medium: 20, hard: 30, expert: 50};
+  const countMap = {veryeasy: 3, easy: 4, medium: 5, hard: 6, expert: 7};
+  const diffs = ['veryeasy', 'easy', 'medium', 'hard', 'expert'];
+
+  diffs.forEach(d => {
+    const pointsPerQ = scoreMap[d];
+    const count = countMap[d];
+    const maxScore = pointsPerQ * count;
+    const simScore = Math.round(maxScore * acc / 100);
+    document.getElementById('comp-' + d).textContent = simScore + '点';
+  });
+
+  document.getElementById('compareTable').style.display = 'table';
+}
+
+function resetSimulator() {
+  document.getElementById('simDifficulty').value = 'easy';
+  document.getElementById('simAccuracy').value = 70;
+  document.getElementById('simAccDisplay').textContent = '70%';
+  document.getElementById('simScore').textContent = '105点';
+  document.getElementById('compareTable').style.display = 'none';
+}
+
 window.addEventListener('load', () => {
   selectDiff('easy');
   updateHighScore();
@@ -846,10 +989,7 @@ window.addEventListener('load', () => {
       <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:600;color:#334155;background:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;">Q. スマートフォンで遊べますか？ <span>▼</span></summary>
       <p style="padding:12px 16px;font-size:13px;color:#475569;margin:0;background:#f8fafc;">はい、スマートフォン・タブレット・PCのすべてでご利用いただけます。ドラッグ&ドロップまたはタップで操作できます。</p>
     </details>
-    <details style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;">
-      <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:600;color:#334155;background:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;">Q. このサービスは完全無料ですか？ <span>▼</span></summary>
-      <p style="padding:12px 16px;font-size:13px;color:#475569;margin:0;background:#f8fafc;">はい、すべての機能を完全無料でご利用いただけます。登録・ログイン不要です。</p>
-    </details>
+    
     <details style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;">
       <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:600;color:#334155;background:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;">Q. ハイスコアはどこに保存されますか？ <span>▼</span></summary>
       <p style="padding:12px 16px;font-size:13px;color:#475569;margin:0;background:#f8fafc;">ハイスコアはお使いのブラウザに保存されます。同じブラウザを使う限りハイスコアが保持されます。</p>
@@ -964,7 +1104,6 @@ window.addEventListener('load', () => {
 <li style='margin-bottom:.4rem'>本ゲームは娯楽・学習目的での利用を想定しています。医療・診断目的での使用はご控えください</li>
 <li style='margin-bottom:.4rem'>長時間のゲームプレイは目や体に負担がかかります。1時間ごとに15〜20分の休憩をとってください</li>
 <li style='margin-bottom:.4rem'>お子様がご利用の場合は保護者のもとで適切な利用時間を管理してください</li>
-<li style='margin-bottom:.4rem'>ブラウザの種類・バージョンにより一部機能が正常に動作しない場合があります</li>
 <li style='margin-bottom:.4rem'>スコア・結果は参考指標です。テスト等の公式成績とは関係ありません</li>
 </ul>
 </div>
@@ -985,52 +1124,17 @@ window.addEventListener('load', () => {
 <div style="margin:1.5rem auto;max-width:760px;padding:0 1rem">
 <div style="padding:1.25rem 1.5rem;background:#f0f9ff;border:1px solid #bae6fd;border-radius:.75rem">
 <h3 style="font-size:1rem;font-weight:700;margin:0 0 .75rem;color:#0c4a6e">ℹ️ このツールについて</h3>
-<p style="margin:0;font-size:.88rem;color:#0c4a6e;line-height:1.9">「📜 タイムラインマスター」はAppADayCreatorが提供する無料Webツールです。ゲーム・学習に関する情報を素早く手軽に確認できます。会員登録・アプリインストール不要で、ブラウザからすぐにご利用いただけます。すべての処理はブラウザ内で完結するため、入力した情報が外部サーバーに送信されることはなく、プライバシーも保護されます。スマートフォン・タブレット・PCのすべてに対応したレスポンシブデザインを採用し、外出先や通勤中でも快適にご利用いただけます。AppADayCreatorでは、日常生活のあらゆるシーンで役立つWebツールを400本以上無料で提供しています。金融・健康・育児・キャリア・旅行など幅広いカテゴリのツールをご活用ください。</p>
+<p style="margin:0;font-size:.88rem;color:#0c4a6e;line-height:1.9">「📜 タイムラインマスター」はAppADayCreatorが提供する無料Webツールです。ゲーム・学習に関する情報を素早く手軽に確認できます。会員登録・アプリインストール不要で、ブラウザからすぐにご利用いただけます。すべての処理はブラウザ内で完結するため、入力した情報が外部サーバーに送信されることはなく、プライバシーも保護されます。AppADayCreatorでは、日常生活のあらゆるシーンで役立つWebツールを400本以上無料で提供しています。金融・健康・育児・キャリア・旅行など幅広いカテゴリのツールをご活用ください。</p>
 </div>
 </div>
 <!-- r31-extra-guide -->
 <div style="margin:1.5rem auto;max-width:760px;padding:0 1rem">
 <div style="background:white;border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(0,0,0,.06)">
-<h2 style="font-size:1.05rem;font-weight:700;margin:0 0 1rem;border-left:4px solid #10b981;padding-left:10px;color:#1e293b">ゲーム・学習ツールの活用ガイド</h2>
-<p style="font-size:.88rem;color:#475569;line-height:1.9;margin:0 0 .75rem">
-本ツール「📜 タイムラインマスター」は、ゲーム・学習に関連する情報の確認・計算・診断をブラウザ上で手軽に行えるように設計されています。
-初回利用時にはまずフォームや入力欄に必要な情報を入力し、「計算」「診断」「確認」などのボタンを押してください。
-結果はリアルタイムで表示され、条件を変えながら何度でも再計算・再診断をお試しいただけます。
-ご不明な点があった場合は、各入力項目の横にある説明文や「？」アイコンをご確認ください。
-</p>
-<p style="font-size:.88rem;color:#475569;line-height:1.9;margin:0 0 .75rem">
-スマートフォンからのご利用でも、PC同様にすべての機能をお使いいただけます。
-スマートフォンのホーム画面に本ページを追加（ブックマーク）すれば、アプリのように素早くアクセスできます。
-ブラウザの印刷機能（Ctrl+P または右上メニュー）を使えば、結果をPDF形式で保存・印刷することが可能です。
-計算結果のスクリーンショットを家族・友人・専門家と共有するのもお勧めです。
-</p>
-<h3 style="font-size:.95rem;font-weight:700;margin:1rem 0 .6rem;color:#1e293b">AppADayCreator のツールの特徴</h3>
-<ul style="margin:0;padding-left:1.25rem;font-size:.88rem;color:#475569;line-height:2.1">
-<li><strong>完全無料・登録不要</strong> — アカウント作成・メールアドレス登録なしで今すぐご利用いただけます</li>
-<li><strong>プライバシー完全保護</strong> — 入力したデータはすべてブラウザ内で処理され、外部サーバーには一切送信されません</li>
-<li><strong>マルチデバイス完全対応</strong> — スマートフォン・タブレット・PCすべてで最適なレイアウトで表示されます</li>
-<li><strong>定期的なコンテンツ更新</strong> — 法改正・制度変更・最新データに対応した情報を随時更新しています</li>
-<li><strong>広告による持続的な無料運営</strong> — 広告収入によって運営しているため、ユーザーの皆様は永続的に無料でご利用いただけます</li>
-<li><strong>400本以上のツールを無料提供</strong> — お金・健康・育児・キャリア・旅行・住まいなど幅広いジャンルのツールをご活用ください</li>
-</ul>
 <h3 style="font-size:.95rem;font-weight:700;margin:1.25rem 0 .6rem;color:#1e293b">関連ツールのご紹介</h3>
-<p style="font-size:.88rem;color:#475569;line-height:1.9;margin:0">
-AppADayCreatorでは、本ツール以外にもゲーム・学習カテゴリの便利なツールを多数ご提供しています。
-家計管理・健康記録・育児サポート・キャリア計画・旅行準備・住まいの整理など、日常生活のさまざまなシーンで役立つツールがそろっています。
-ぜひトップページから他のツールもご活用ください。すべて完全無料・登録不要でお使いいただけます。
-本ツールへのご意見・ご感想はお問い合わせページからお送りいただけます。皆様のフィードバックが品質改善につながります。
-</p>
+
 </div>
 </div>
 
-<!-- rakuten-affiliate-block -->
-    <div style="border:1px solid #BF0000;background:#fff9f9;border-radius:10px;padding:14px;margin:12px auto;max-width:480px;text-align:center;">
-      <p style="font-size:0.85rem;color:#4b5563;margin-bottom:8px;">🛒 関連商品を楽天市場で探す</p>
-      <a href="https://hb.afl.rakuten.co.jp/ichiba/541ad0d2.ce2bed12.541ad0d3.a1a2318c/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Fhistory%2520%25E3%2582%25B0%25E3%2583%2583%25E3%2582%25BA%2F&link_type=text" target="_blank" rel="nofollow sponsored noopener"
-         style="display:inline-block;background:#BF0000;color:white;padding:10px 24px;border-radius:8px;font-weight:bold;font-size:14px;text-decoration:none;">
-        楽天市場で「history グッズ」を検索 →
-      </a>
-    </div>
 <!-- phase10-rakuten-updated -->
 <!-- phase10-faq-enhanced -->
 
@@ -1038,14 +1142,8 @@ AppADayCreatorでは、本ツール以外にもゲーム・学習カテゴリの
 <div style="margin:24px auto;max-width:720px;padding:16px 20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
   <p style="font-size:12px;font-weight:600;color:#94a3b8;text-align:center;margin:0 0 12px;letter-spacing:0.05em;">スポンサーリンク</p>
   <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
-    <a href="https://px.a8.net/svt/ejp?a8mat=4AX38J+4DU6NE+2MJW+HYV1E" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">小中学生対象の通信教育【デキタス】誕生♪</a><img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4AX38J+4DU6NE+2MJW+HYV1E" alt="">
-    <a href="https://px.a8.net/svt/ejp?a8mat=4B3WJ6+FQ9JMY+1LP8+BY642" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">日々の生活にハッピーをプラス！《ハピタス》</a><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=4B3WJ6+FQ9JMY+1LP8+BY642" alt="">
-    <a href="https://px.a8.net/svt/ejp?a8mat=4B3WJ7+18PTPM+1O96+699KI" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">《ヨガ》をはじめてみませんか？ホットヨガスタジオLAVA</a><img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=4B3WJ7+18PTPM+1O96+699KI" alt="">
-    <a href="https://px.a8.net/svt/ejp?a8mat=457C4C+C23BCA+0K+10FXXU" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">アフィリエイトならA8.net</a><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=457C4C+C23BCA+0K+10FXXU" alt="">
-    <a href="https://px.a8.net/svt/ejp?a8mat=4B3WJ5+C2OQY2+14CS+68EPE" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">【じゃらん】国内25,000軒の宿をネットで予約OK！2％ポイント還元！</a><img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4B3WJ5+C2OQY2+14CS+68EPE" alt="">
-    <a href="https://px.a8.net/svt/ejp?a8mat=4B3WJ6+FIIWRU+1IRY+1TKOKI" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">ファイナンシャルアカデミー「お金の教養講座」</a><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4B3WJ6+FIIWRU+1IRY+1TKOKI" alt="">
-    <a href="https://px.a8.net/svt/ejp?a8mat=4B3WJA+86RVSA+3XCC+64C3M" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">松井証券</a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=4B3WJA+86RVSA+3XCC+64C3M" alt="">
-    <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR6+G0ZCIY+1QM6+HZAGY" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-flex;align-items:center;padding:8px 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;color:#334155;text-decoration:none;white-space:nowrap;">働くママを応援中♪栄養士の献立で簡単バランスごはん♪</a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=4B3VR6+G0ZCIY+1QM6+HZAGY" alt="">
+    <a href="https://px.a8.net/svt/ejp?a8mat=4B3WJ6+FQ9JMY+1LP8+BY642" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-block;padding:5px 12px;background:#fff;border:1px solid #d1d5db;border-radius:20px;font-size:12px;color:#4b5563;text-decoration:none;white-space:nowrap;">日々の生活にハッピーをプラス！《ハピタス》</a><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=4B3WJ6+FQ9JMY+1LP8+BY642" alt="">
+    <a href="https://px.a8.net/svt/ejp?a8mat=4B3VR6+GFV6NE+3CJQ+64C3M" rel="nofollow noopener noreferrer" target="_blank" style="display:inline-block;padding:5px 12px;background:#fff;border:1px solid #d1d5db;border-radius:20px;font-size:12px;color:#4b5563;text-decoration:none;white-space:nowrap;">本・雑誌・ビジネス書が聴ける【audiobook.jp】</a><img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4B3VR6+GFV6NE+3CJQ+64C3M" alt="">
   </div>
 </div>
 
@@ -1065,6 +1163,10 @@ AppADayCreatorでは、本ツール以外にもゲーム・学習カテゴリの
   <p style="color:#374151;margin:0 0 .75rem;line-height:1.8">「📜 タイムラインマスター」は、楽しみながら知識やスキルを身につけられる無料のゲーム・クイズです。</p>
   <p style="color:#374151;margin:0 0 .75rem;line-height:1.8">ブラウザ上で動作するため、インストール不要ですぐに遊べます。スキマ時間の活用にもぴったりです。</p>
   <p style="color:#374151;margin:0;line-height:1.8">スコアや進捗を確認しながらレベルアップを楽しんでいただけます。</p>
+</div>
+<div id="game-desc-section" style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px 16px;margin:12px auto;max-width:680px;">
+  <p style="font-size:13px;font-weight:700;color:#0369a1;margin:0 0 6px;">📜 歴史タイムラインゲーム</p>
+  <p style="font-size:13px;color:#334155;margin:0;line-height:1.75;">歴史上の出来事を正しい時系列に並べるクイズゲームです。年号暗記に頼らず「時代の流れ」を直感的に把握できます。日本史・世界史の学習補助として、また歴史に興味を持つきっかけとして活用できます。中学・高校・大学受験対策にも有効な知識定着メソッドです。</p>
 </div>
 <div style="background:#eaf4fb;border-left:4px solid #1976d2;padding:20px 24px;margin:24px 0;border-radius:0 8px 8px 0">
   <h3 style="font-size:1.1rem;font-weight:800;color:#1e3a5f">このツールでできること</h3>
@@ -1113,12 +1215,10 @@ AppADayCreatorでは、本ツール以外にもゲーム・学習カテゴリの
       </tr>
     </tbody>
   </table>
-  <p style="font-size:.78rem;color:#6b7280;margin:.5rem 0 0">※ 記載データは各出典の公表時点の情報です。最新情報は各公的機関の公式サイトをご確認ください。</p>
 </div>
 <!-- r20-tool-links -->
 <div id="tool-disclaimer" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:1.25rem 1.5rem;margin:1.5rem 0;font-size:.875rem">
   <p style="font-weight:700;color:#374151;margin:0 0 .5rem">⚠️ 計算結果の活用にあたって</p>
-  <p style="color:#4b5563;margin:0 0 .5rem;line-height:1.75">計算結果は参考値です。入力値や前提条件によって結果が変わります。重要な判断の際は最新の公式情報をご確認ください。</p>
   <ul style="margin:0;padding-left:1.25rem;color:#4b5563;line-height:1.9"><li><a href="https://www.caa.go.jp/" target="_blank" rel="noopener noreferrer" style="color:#4f46e5;font-size:.85rem">消費者庁「くらしの安心ガイド」</a></li></ul>
 </div>
 <h2 id="faq-h" style="font-size:1.05rem;font-weight:700;margin-bottom:12px;border-left:4px solid #4f46e5;padding-left:10px;">よくある質問</h2>
@@ -1159,7 +1259,32 @@ AppADayCreatorでは、本ツール以外にもゲーム・学習カテゴリの
 <li>楽しみながら知識を身につけたい方</li><li>スキマ時間に頭を使いたい方</li><li>子どもから大人まで気軽に遊びたい方</li>
 </ul>
 <h3 style="font-size:.9rem;font-weight:700;color:#1f2937;margin:.75rem 0 .4rem">よくある質問</h3>
-<div style="margin-bottom:.6rem"><p style="font-weight:700;color:#111827;margin:0 0 .2rem;font-size:.88rem">Q. データは保存されますか？</p><p style="color:#374151;margin:0;font-size:.85rem;line-height:1.75">A. スコアや記録はブラウザのローカルストレージに保存されます。別のデバイスや他のブラウザとは共有されません。</p></div><div style="margin-bottom:.6rem"><p style="font-weight:700;color:#111827;margin:0 0 .2rem;font-size:.88rem">Q. 無料で使えますか？</p><p style="color:#374151;margin:0;font-size:.85rem;line-height:1.75">A. はい、完全無料・登録不要でご利用いただけます。</p></div><div style="margin-bottom:.6rem"><p style="font-weight:700;color:#111827;margin:0 0 .2rem;font-size:.88rem">Q. スマートフォンでも遊べますか？</p><p style="color:#374151;margin:0;font-size:.85rem;line-height:1.75">A. スマートフォン・タブレット・PCすべてに対応しています。</p></div>
+<div style="margin-bottom:.6rem"><p style="font-weight:700;color:#111827;margin:0 0 .2rem;font-size:.88rem">Q. データは保存されますか？</p><p style="color:#374151;margin:0;font-size:.85rem;line-height:1.75">A. スコアや記録はブラウザのローカルストレージに保存されます。別のデバイスや他のブラウザとは共有されません。</p></div><div style="margin-bottom:.6rem"><p style="font-weight:700;color:#111827;margin:0 0 .2rem;font-size:.88rem">Q. スマートフォンでも遊べますか？</p><p style="color:#374151;margin:0;font-size:.85rem;line-height:1.75">A. スマートフォン・タブレット・PCすべてに対応しています。</p></div>
 </section>
+<div style="text-align:center;margin:20px auto;max-width:728px;padding:0 16px">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>try{(adsbygoogle = window.adsbygoogle || []).push({});}catch(e){}</script>
+</div>
+<!-- r31-cookie-banner -->
+<div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#1e293b;color:#f1f5f9;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;z-index:9999;font-size:.85rem;box-shadow:0 -2px 10px rgba(0,0,0,.3)">
+<div>当サイトはCookieおよびGoogle Analyticsを使用しています。<a href="/privacy-policy.html" style="color:#60a5fa;text-decoration:underline">プライバシーポリシー</a>をご確認ください。</div>
+<button onclick="document.getElementById('cookie-banner').style.display='none';window.grantConsent && window.grantConsent()" style="background:#3b82f6;color:#fff;border:none;padding:.5rem 1.25rem;border-radius:.375rem;font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap">同意して閉じる</button>
+</div>
+<script>if(localStorage.getItem('cookie-consent'))document.getElementById('cookie-banner').style.display='none'</script>
+<!-- r46-org-footer -->
+<div style="text-align:center;font-size:11px;color:#9ca3af;padding:6px 0 4px;background:#f8fafc;border-top:1px solid #e5e7eb;">
+  運営: <a href="https://appadaycreator.com/" style="color:#9ca3af;text-decoration:none;">AppADayCreator</a> | <a href="https://tech-and-brace.co.jp/" rel="noopener" style="color:#9ca3af;text-decoration:none;">株式会社Tech&amp;Brace</a>
+</div>
+<script src="/assets/consent-mode.js"></script>
 </body>
 </html>
+<section style="margin:2rem 0;padding:1.5rem;background:#f8fafc;border-radius:.75rem;border:1px solid #e2e8f0">
+<h2 style="font-size:1.05rem;font-weight:700;color:#1e293b;margin:0 0 .75rem">歴史タイムラインゲームで学ぶ歴史学習の効果と方法</h2>
+<p style="font-size:.9rem;line-height:1.8;color:#374151;margin:0 0 1rem">歴史の出来事を年代順に並べるタイムラインゲームは、歴史の流れと因果関係を楽しみながら理解できる学習法です。年号の丸暗記でなく時代の流れを体感することで歴史への理解が深まります。</p>
+<ul style="font-size:.87rem;line-height:2;color:#374151;padding-left:1.2rem;margin:0 0 1rem">
+<li style="margin-bottom:.4rem">歴史学習の意義：過去の出来事から現在・未来への示唆を得る。国際社会・文化・政治・経済の背景を理解する基礎となる</li><li style="margin-bottom:.4rem">タイムラインの活用：視覚的な年表（タイムライン）は出来事の並び・間隔・因果関係を直感的に把握するのに有効な学習ツール</li>
+</ul>
+<div style="display:grid;gap:.75rem">
+<div style="padding:.75rem;background:#fff;border-radius:.5rem;border:1px solid #e2e8f0"><p style="font-size:.85rem;font-weight:700;color:#1e293b;margin:0 0 .25rem">Q. 歴史の年号・出来事を効率よく覚えるための方法を教えてください。</p><p style="font-size:.83rem;color:#6b7280;margin:0;line-height:1.75">A. 歴史の効率的な覚え方として「流れで理解する：出来事を単独で暗記するより「なぜその出来事が起きたか・どんな影響があったか」という因果関係で覚えると記憶に残りやすい」「語呂合わせを活用する：「良い国（1192）つくろう鎌倉幕府」のような語呂合わせは記憶の手がかりになる」「地図と一緒に覚える：地理的な位置情報と歴史的出来事を組み合わせると多角的な記憶になる」「タイムラインで整理する：年表を自分で作ることで出来事の前後関係を視覚的に整理できる」があります。</p></div><div style="padding:.75rem;background:#fff;border-radius:.5rem;border:1px solid #e2e8f0"><p style="font-size:.85rem;font-weight:700;color:#1e293b;margin:0 0 .25rem">Q. 歴史学習にゲームやクイズを活用するメリットは何ですか？</p><p style="font-size:.83rem;color:#6b7280;margin:0;line-height:1.75">A. ゲームを使った歴史学習のメリットとして「能動的な思い出し：答えを問われることで記憶の検索・強化が起きる（単に読むより記憶が定着しやすい）」「間違えから学ぶ：不正解の体験はどこが理解不足かを明確にし、的を絞った学習につながる」「楽しみながら繰り返す：ゲーム形式は繰り返しへの心理的ハードルが低く、多くの問題をこなせる」「タイムプレッシャー：制限時間があることで集中力が高まる」があります。</p></div><div style="padding:.75rem;background:#fff;border-radius:.5rem;border:1px solid #e2e8f0"><p style="font-size:.85rem;font-weight:700;color:#1e293b;margin:0 0 .25rem">Q. 日本史と世界史を関連づけて学ぶ方法はありますか？</p><p style="font-size:.83rem;color:#6b7280;margin:0;line-height:1.75">A. 日本史・世界史の関連学習の方法として「同時代の出来事を並べる：江戸時代に欧州では産業革命が起きていた・明治維新はフランス革命の約80年後に相当するなど時代の重なりを意識する」「国際関係の観点から見る：日本の鎖国・開国・戦争などは当時の世界情勢と深く関連している」「時代の流れで理解する：グローバルな視点での共通テーマ（植民地支配・民主主義の広がり・産業化）を軸にすると日本・世界史が体系化しやすい」があります。</p></div>
+</div>
+</section>
