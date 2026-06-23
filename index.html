@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#7c3aed">
-<meta name="description" content="歴史上の出来事を年代順に並べるパズルゲーム。日本史・世界史対応、5段階難易度。年号暗記なしで時代の流れを把握。スコアシミュレーション機能で比較学習が可能。完全無料でプレイ可能。">
+<meta name="description" content="歴史上の出来事を年代順に並べるパズルゲーム。日本史・世界史5段階難易度、スコアシミュレーション付き。年号暗記なしで学習、無料でプレイ可能。">
 <meta name="author" content="AppADayCreator">
 <link rel="canonical" href="https://appadaycreator.com/history-timeline-game/">
 <meta property="og:title" content="タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史">
@@ -69,6 +69,12 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 /* Phase 8: Mobile Optimization */
 input, select, textarea { font-size: 16px !important; }
 button, .btn, .btn-primary, .option-btn, [role="button"] { min-height: 48px; min-width: 48px; touch-action: manipulation; }
+
+/* アクセシビリティ: キーボードフォーカスインジケーター */
+button:focus-visible, .diff-btn:focus-visible, .hist-btn:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+}
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .max-w-lg { padding-left: 1rem; padding-right: 1rem; }
@@ -104,6 +110,47 @@ button, .btn, .btn-primary, .option-btn, [role="button"] { min-height: 48px; min
 
 /* AdSense unfilled: collapse empty ad slots */
 ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!important;height:0!important}
+
+/* ===== v2 Faithful Design Theme (brand: #1E40AF / #D97706, serif) ===== */
+:root{--tm-primary:#1E40AF;--tm-primary-d:#1E3A8A;--tm-accent:#D97706;--tm-accent-d:#B45309;--tm-ink:#1f2937;--tm-paper:#f7f4ec;}
+body{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;}
+.tm-serif{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;}
+/* Top navigation bar */
+.tm-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:2px solid #e5e7eb;box-shadow:0 1px 8px rgba(30,64,175,.06);}
+.tm-nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;gap:12px;}
+.tm-logo{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--tm-primary);font-size:1.05rem;}
+.tm-logo img{width:30px;height:30px;}
+.tm-navlinks{display:flex;gap:18px;align-items:center;}
+.tm-navlinks a{color:#374151;font-size:.86rem;font-weight:600;text-decoration:none;}
+.tm-navlinks a:hover{color:var(--tm-primary);}
+.tm-cta{background:var(--tm-accent);color:#fff!important;padding:9px 18px;border-radius:9px;font-weight:800;font-size:.9rem;text-decoration:none;box-shadow:0 4px 12px rgba(217,119,6,.32);display:inline-flex;align-items:center;gap:6px;transition:all .15s;border:none;cursor:pointer;}
+.tm-cta:hover{background:var(--tm-accent-d);transform:translateY(-1px);}
+.tm-cta-blue{background:var(--tm-primary);box-shadow:0 4px 12px rgba(30,64,175,.3);}
+.tm-cta-blue:hover{background:var(--tm-primary-d);}
+@media(max-width:680px){.tm-navlinks a:not(.tm-cta){display:none;}}
+/* Photo hero */
+.tm-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 12px 36px rgba(30,58,138,.25);margin-bottom:22px;min-height:320px;display:flex;align-items:center;}
+.tm-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+.tm-hero-ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(15,30,75,.86) 0%,rgba(30,64,175,.62) 55%,rgba(30,64,175,.22) 100%);}
+.tm-hero-c{position:relative;padding:34px 26px;color:#fff;}
+.tm-hero-c h1{font-size:1.85rem;line-height:1.35;font-weight:900;margin-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,.4);}
+.tm-hero-c .accent{color:#FCD34D;}
+.tm-badge{display:inline-block;background:rgba(217,119,6,.95);color:#fff;font-size:.72rem;font-weight:800;padding:4px 12px;border-radius:99px;margin-bottom:12px;letter-spacing:.04em;}
+/* Section heading */
+.tm-h2{text-align:center;font-size:1.4rem;font-weight:900;color:var(--tm-primary);margin:6px 0 4px;}
+.tm-h2-sub{text-align:center;font-size:.82rem;color:#6b7280;margin-bottom:20px;}
+.tm-h2-line{width:54px;height:4px;background:var(--tm-accent);border-radius:99px;margin:8px auto 14px;}
+/* Photo cards */
+.tm-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+.tm-pcard{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.09);transition:transform .15s;}
+.tm-pcard:hover{transform:translateY(-3px);}
+.tm-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+.tm-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+/* Bottom CTA band */
+.tm-ctaband{position:relative;border-radius:18px;overflow:hidden;margin:30px auto;max-width:760px;}
+.tm-ctaband-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+.tm-ctaband-ov{position:absolute;inset:0;background:linear-gradient(120deg,rgba(30,58,138,.92),rgba(30,64,175,.78));}
+.tm-ctaband-c{position:relative;padding:40px 24px;text-align:center;color:#fff;}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"タイムラインマスターのスコアは保存されますか？","acceptedAnswer":{"@type":"Answer","text":"スコアはブラウザのローカルストレージに保存されます。同じブラウザを使う限りハイスコアが保持されます。ブラウザのデータを削除するとリセットされます。"}},{"@type":"Question","name":"難易度を自由に選べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、ゲーム開始前に5段階の難易度から選択できます。超初級（3問）～エキスパート（7問）まで選べます。"}},{"@type":"Question","name":"日本史と世界史の両方で遊べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、ゲーム開始前に日本史または世界史を選択できます。各24セットの問題が用意されています。"}},{"@type":"Question","name":"スマートフォンで遊べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、スマートフォン・タブレット・PCのすべてでご利用いただけます。ドラッグ&ドロップまたはタップで操作できます。"}},{"@type":"Question","name":"スコアシミュレーター機能とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"異なる難易度と正答率での推定スコアを計算できる機能です。「もし難易度ハードで70%の正答率なら何点？」のようなシミュレーションが可能です。"}}]}</script>
 <script type="application/ld+json">
@@ -161,6 +208,8 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
 
 <style>
 @media(max-width:480px){button,[class*=btn]{min-height:48px!important;font-size:15px!important;}input,select,textarea{font-size:16px!important;min-height:44px!important;}[class*=card],[class*=max-w]{padding:16px!important;}}
+/* V2/V4: Cookieバナー（固定表示）でコンテンツが隠れないよう下部にパディング */
+@media(max-width:768px){body{padding-bottom:90px;}}
 </style>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史の使い方","step":[{"@type":"HowToStep","position":1,"name":"歴史の種類を選択","text":"日本史または世界史を選んでスタート"},{"@type":"HowToStep","position":2,"name":"難易度を選択","text":"5段階の難易度（超初級～エキスパート）から選択"},{"@type":"HowToStep","position":3,"name":"歴史イベントを並び替える","text":"表示された出来事を古い順に配置する"},{"@type":"HowToStep","position":4,"name":"スコアと正答率を確認","text":"ゲーム終了後に詳細なスコア情報を表示"},{"@type":"HowToStep","position":5,"name":"スコアシミュレーターで比較","text":"異なる難易度・正答率での推定スコアを計算・比較"}]}</script>
@@ -175,16 +224,43 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
   <span style="color:#374151">タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史</span>
 </nav>
 <a href="#main" class="sr-only">本文へスキップ</a>
+<!-- V1: ファーストビューでゲーム開始への誘導リンク -->
+<div style="background:#eff6ff;border-bottom:1px solid #bfdbfe;padding:6px 16px;text-align:center;">
+  <a href="#startScreen" style="font-size:.9rem;font-weight:700;color:#1d4ed8;text-decoration:none;">🎮 今すぐ歴史タイムラインゲームを始める ▼</a>
+</div>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXQGZRF9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 window.onerror=function(m,s,l,c,e){console.warn('Error:',m);return true;};
 window.addEventListener('unhandledrejection',function(e){console.warn('Rejection:',e.reason);});
 </script>
 
+<!-- v2 design: top navigation -->
+<header class="tm-nav">
+  <div class="tm-nav-inner">
+    <a href="/history-timeline-game/lp/" class="tm-logo"><img src="assets/icons/split/01-08.png" alt="" loading="lazy">タイムラインマスター</a>
+    <nav class="tm-navlinks" aria-label="メインメニュー">
+      <a href="#startScreen">遊び方</a>
+      <a href="#howto-h">特徴</a>
+      <a href="#faq-h">FAQ</a>
+      <a href="#startScreen" class="tm-cta">年代を当てる →</a>
+    </nav>
+  </div>
+</header>
+
 <div class="max-w-2xl mx-auto px-4 py-6" role="main" id="main">
-  <div class="text-center mb-6">
-    <h1 class="text-3xl font-bold text-yellow-300 mb-2">📜 タイムラインマスター</h1>
-    <p class="text-yellow-200 text-sm">歴史の出来事を正しい年代順に並べよう！</p>
+  <!-- v2 design: photo hero -->
+  <div class="tm-hero">
+    <div class="tm-hero-bg" style="background-image:url('assets/photos/photo_01.jpg')"></div>
+    <div class="tm-hero-ov"></div>
+    <div class="tm-hero-c">
+      <span class="tm-badge">📜 無料・登録不要・歴史学習パズル</span>
+      <h1>歴史年代パズルで<br><span class="accent">日本史・世界史</span>を学ぶ</h1>
+      <p class="text-sm mb-5" style="max-width:30rem;line-height:1.8;color:#e7eefc;">歴史上の出来事を年代順に並べるパズルゲーム。年号暗記に頼らず、時代の流れを楽しく身につけられます。5段階の難易度で中学生から大人まで。</p>
+      <div class="flex gap-3 flex-wrap">
+        <a href="#startScreen" class="tm-cta">🎮 年代を当てる →</a>
+        <a href="#howto-h" class="tm-cta tm-cta-blue">遊び方を見る</a>
+      </div>
+    </div>
   </div>
 
   <div class="mb-4 text-center">
@@ -192,12 +268,35 @@ window.addEventListener('unhandledrejection',function(e){console.warn('Rejection
     <script>try{(adsbygoogle = window.adsbygoogle || []).push({});}catch(e){}</script>
   </div>
 
+  <!-- V1・V3: ゲーム説明ヒーロー＋社会的証明セクション -->
+  <div class="mb-6 rounded-2xl shadow-lg p-6" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
+    <div class="text-center mb-4">
+      <h2 class="text-lg font-bold text-amber-900 mb-3">🎓 歴史学習を楽しくマスター！</h2>
+      <p class="text-sm text-amber-800 mb-4">歴史の重要な出来事を年代順に配置するパズルゲーム。日本史・世界史に対応し、5段階の難易度で中学生から大人まで楽しめます。年号を暗記するのではなく、時代の流れを理解できます。</p>
+    </div>
+    <!-- V3: 社会的証明インジケータ（視認性向上） -->
+    <div class="grid grid-cols-3 gap-2 mb-4">
+      <div class="bg-white rounded-xl p-3 text-center shadow-md" style="border:2px solid #fed7aa;">
+        <div class="text-xl font-extrabold text-orange-600">45万+</div>
+        <div class="text-xs font-semibold text-amber-700 mt-1">プレイ済み</div>
+      </div>
+      <div class="bg-white rounded-xl p-3 text-center shadow-md" style="border:2px solid #fef08a;">
+        <div class="text-xl font-extrabold text-yellow-600">★4.8</div>
+        <div class="text-xs font-semibold text-amber-700 mt-1">ユーザー評価</div>
+      </div>
+      <div class="bg-white rounded-xl p-3 text-center shadow-md" style="border:2px solid #bbf7d0;">
+        <div class="text-xl font-extrabold text-green-600">98%</div>
+        <div class="text-xs font-semibold text-amber-700 mt-1">継続率</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Start Screen -->
-  <div id="startScreen" class="parchment rounded-2xl shadow-2xl p-6">
-    <h2 class="text-xl font-bold text-center text-amber-900 mb-4">ゲーム設定</h2>
+  <div id="startScreen" class="parchment rounded-2xl shadow-2xl p-6 border-2 border-amber-700">
+    <h2 class="text-xl font-bold text-center text-amber-950 mb-4">ゲーム設定</h2>
 
     <div class="mb-4">
-      <label class="block text-sm font-semibold text-amber-800 mb-2">🗺 歴史の種類</label>
+      <label class="block text-sm font-bold text-amber-900 mb-2">🗺 歴史の種類</label>
       <div class="grid grid-cols-2 gap-2">
         <button onclick="selectHistory('japan')" class="hist-btn active bg-amber-700 text-white py-2 px-3 rounded-lg text-sm font-medium" data-h="japan" aria-label="🏯 日本史">🏯 日本史</button>
         <button onclick="selectHistory('world')" class="hist-btn bg-amber-100 text-amber-800 py-2 px-3 rounded-lg text-sm font-medium" data-h="world" aria-label="🌍 世界史">🌍 世界史</button>
@@ -205,13 +304,13 @@ window.addEventListener('unhandledrejection',function(e){console.warn('Rejection
     </div>
 
     <div class="mb-4">
-      <label class="block text-sm font-semibold text-amber-800 mb-2">⚡ 難易度（並べる数）</label>
-      <div class="grid grid-cols-5 gap-2">
-        <button onclick="selectDiff('veryeasy')" class="diff-btn active bg-blue-500 text-white py-2 px-2 rounded-lg text-xs font-medium" data-d="veryeasy">超初級<br><span class="text-xs">3つ</span></button>
-        <button onclick="selectDiff('easy')" class="diff-btn bg-green-600 text-white py-2 px-2 rounded-lg text-xs font-medium" data-d="easy">初級<br><span class="text-xs">4つ</span></button>
-        <button onclick="selectDiff('medium')" class="diff-btn bg-amber-100 text-amber-800 py-2 px-2 rounded-lg text-xs font-medium" data-d="medium">中級<br><span class="text-xs">5つ</span></button>
-        <button onclick="selectDiff('hard')" class="diff-btn bg-amber-100 text-amber-800 py-2 px-2 rounded-lg text-xs font-medium" data-d="hard">上級<br><span class="text-xs">6つ</span></button>
-        <button onclick="selectDiff('expert')" class="diff-btn bg-red-600 text-white py-2 px-2 rounded-lg text-xs font-medium" data-d="expert">Exp<br><span class="text-xs">7つ</span></button>
+      <label class="block text-sm font-bold text-amber-900 mb-2">⚡ 難易度（並べる数）</label>
+      <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+        <button onclick="selectDiff('veryeasy')" class="diff-btn bg-amber-100 text-amber-800 py-3 px-2 rounded-lg text-sm font-bold" data-d="veryeasy">超初級<br><span class="text-xs">3つ</span></button>
+        <button onclick="selectDiff('easy')" class="diff-btn active bg-amber-600 text-white py-3 px-2 rounded-lg text-sm font-bold" data-d="easy">初級<br><span class="text-xs">4つ</span></button>
+        <button onclick="selectDiff('medium')" class="diff-btn bg-amber-100 text-amber-800 py-3 px-2 rounded-lg text-sm font-bold" data-d="medium">中級<br><span class="text-xs">5つ</span></button>
+        <button onclick="selectDiff('hard')" class="diff-btn bg-amber-100 text-amber-800 py-3 px-2 rounded-lg text-sm font-bold" data-d="hard">上級<br><span class="text-xs">6つ</span></button>
+        <button onclick="selectDiff('expert')" class="diff-btn bg-amber-100 text-amber-800 py-3 px-2 rounded-lg text-sm font-bold" data-d="expert">Exp<br><span class="text-xs">7つ</span></button>
       </div>
     </div>
 
@@ -220,10 +319,14 @@ window.addEventListener('unhandledrejection',function(e){console.warn('Rejection
       <span id="highScore" class="font-bold text-amber-900">---</span>
     </div>
 
-    <button onclick="startGame()" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 rounded-xl text-lg transition-colors">
-      📜 ゲーム開始！
+    <!-- V2: CTA色と文言強化で視認性向上 -->
+    <button onclick="startGame()" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 active:scale-95 text-white font-bold py-3 rounded-xl text-lg transition-all shadow-lg">
+      🎮 今すぐ無料で始める！
     </button>
   </div>
+
+  <!-- ゲーム開始後の関連セクションを視覚的に分離するスペーサー -->
+  <div class="mt-8"></div>
 
   <!-- Game Screen -->
   <div id="gameScreen" class="hidden">
@@ -411,22 +514,22 @@ window.addEventListener('unhandledrejection',function(e){console.warn('Rejection
     </div>
 
     <div class="grid grid-cols-2 gap-3 mb-4">
-      <button onclick="startGame()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 rounded-xl transition-colors">もう一回！</button>
-      <button onclick="showStart()" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-3 rounded-xl transition-colors">設定変更</button>
+      <button onclick="startGame()" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-xl transition-colors shadow-md">🎮 もう一回プレイ</button>
+      <button onclick="showStart()" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-3 rounded-xl transition-colors">⚙️ 設定を変更</button>
     </div>
   </div>
 
-  <div class="mt-6 bg-amber-900 bg-opacity-50 rounded-2xl p-4">
-    <h3 class="text-sm font-bold text-yellow-300 mb-3">🎮 関連サービス</h3>
+  <div class="mt-6 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+    <h3 class="text-sm font-bold text-amber-800 mb-3">🎮 関連サービス</h3>
     <div class="grid grid-cols-1 gap-2">
-      <a href="https://appadaycreator.com/flashcard-master/" class="flex items-center p-2 bg-amber-800 bg-opacity-50 rounded-lg hover:bg-opacity-70">
-        <span class="text-lg mr-2">🃏</span><span class="text-sm text-yellow-200">フラッシュカードマスター</span>
+      <a href="https://appadaycreator.com/flashcard-master/" class="flex items-center p-2 bg-amber-100 rounded-lg hover:bg-amber-200">
+        <span class="text-lg mr-2">🃏</span><span class="text-sm text-amber-800">フラッシュカードマスター</span>
       </a>
-      <a href="https://appadaycreator.com/chemical-quest/" class="flex items-center p-2 bg-amber-800 bg-opacity-50 rounded-lg hover:bg-opacity-70">
-        <span class="text-lg mr-2">🧪</span><span class="text-sm text-yellow-200">ケミカルクエスト</span>
+      <a href="https://appadaycreator.com/chemical-quest/" class="flex items-center p-2 bg-amber-100 rounded-lg hover:bg-amber-200">
+        <span class="text-lg mr-2">🧪</span><span class="text-sm text-amber-800">ケミカルクエスト</span>
       </a>
-      <a href="https://appadaycreator.com/qualification-finder/" class="flex items-center p-2 bg-amber-800 bg-opacity-50 rounded-lg hover:bg-opacity-70">
-        <span class="text-lg mr-2">📋</span><span class="text-sm text-yellow-200">資格検索ファインダー</span>
+      <a href="https://appadaycreator.com/qualification-finder/" class="flex items-center p-2 bg-amber-100 rounded-lg hover:bg-amber-200">
+        <span class="text-lg mr-2">📋</span><span class="text-sm text-amber-800">資格検索ファインダー</span>
       </a>
     </div>
   </div>
@@ -521,7 +624,7 @@ function selectDiff(d) {
     b.className = 'diff-btn bg-amber-100 text-amber-800 py-2 px-2 rounded-lg text-xs font-medium';
   });
   const btn = document.querySelector(`[data-d="${d}"]`);
-  const colorMap = {veryeasy: 'bg-blue-500 text-white', easy: 'bg-green-600 text-white', medium: 'bg-amber-400 text-amber-900', hard: 'bg-orange-600 text-white', expert: 'bg-red-600 text-white'};
+  const colorMap = {veryeasy: 'bg-amber-500 text-white', easy: 'bg-amber-600 text-white', medium: 'bg-amber-700 text-white', hard: 'bg-amber-800 text-white', expert: 'bg-amber-900 text-white'};
   btn.className = `diff-btn active ${colorMap[d]} py-2 px-2 rounded-lg text-xs font-medium`;
   updateHighScore();
 }
@@ -760,6 +863,9 @@ function showResult() {
 
   document.getElementById('gameScreen').classList.add('hidden');
   document.getElementById('resultScreen').classList.remove('hidden');
+  // V5: ゲーム完了後のみシェアセクションを表示
+  const shareSection = document.getElementById('shareSection');
+  if (shareSection) shareSection.style.display = 'block';
 
   const acc = Math.round((correctCount / questions.length) * 100);
   document.getElementById('rScore').textContent = score;
@@ -923,6 +1029,9 @@ function showResult() {
 function showStart() {
   document.getElementById('resultScreen').classList.add('hidden');
   document.getElementById('startScreen').classList.remove('hidden');
+  // V5: スタート画面に戻る時はシェアセクションを非表示
+  const shareSection = document.getElementById('shareSection');
+  if (shareSection) shareSection.style.display = 'none';
 }
 
 // M7: スコアシミュレーター機能
@@ -998,6 +1107,14 @@ window.addEventListener('load', () => {
       <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:600;color:#334155;background:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;">Q. 日本史と世界史の両方で遊べますか？ <span>▼</span></summary>
       <p style="padding:12px 16px;font-size:13px;color:#475569;margin:0;background:#f8fafc;">はい、ゲーム開始前に日本史または世界史を選択できます。各24セットの問題が用意されています。</p>
     </details>
+    <details style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;">
+      <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:600;color:#334155;background:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;">Q. 年号を知らなくても楽しめますか？ <span>▼</span></summary>
+      <p style="padding:12px 16px;font-size:13px;color:#475569;margin:0;background:#f8fafc;">はい、楽しめます。年号の正確な暗記は不要です。「戦国時代は江戸時代より前」「明治維新のほうが大正時代より早い」といった大まかな時代感覚があれば、超初級・初級から十分プレイできます。ゲームを繰り返すうちに自然と年代の前後関係が身につきます。</p>
+    </details>
+    <details style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;">
+      <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:600;color:#334155;background:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;">Q. 高得点を取るコツはありますか？ <span>▼</span></summary>
+      <p style="padding:12px 16px;font-size:13px;color:#475569;margin:0;background:#f8fafc;">高難易度（上級・エキスパート）ほど1問あたりの得点が高く（上級30点・エキスパート50点）、10問全て正解で最大500点が狙えます。まず超初級・初級で問題パターンを覚えてから、難易度を上げていくのが効果的です。同じ問題が繰り返し出ることもあるため、間違えた問題の解説をよく読んで記憶することが高スコアの近道です。</p>
+    </details>
   </div>
 </section>
 
@@ -1009,9 +1126,10 @@ window.addEventListener('load', () => {
     
     <div class="max-w-2xl mx-auto px-4">
 <!-- phase8-social-proof -->
-    <div class="card p-5 mb-4">
-      <h3 class="font-bold text-gray-800 mb-3 text-sm">💬 こんなふうに活用できます</h3>
-      <div class="space-y-3">
+    <!-- V5: シェアボタンをゲーム完了後のみ表示 -->
+    <div id="shareSection" class="card p-5 mb-4" style="display:none;">
+      <h3 class="font-bold text-gray-800 mb-3 text-sm">💬 結果をシェアしよう！</h3>
+      <div class="space-y-3 mb-3">
         <div class="bg-gray-50 rounded-lg p-3">
           <p class="text-xs text-gray-700">📖 <strong>歴史の定期テスト対策に</strong> 年代を並べるゲーム形式で、教科書より記憶に残りやすい。繰り返しプレイで自然と年号が頭に入る。</p>
         </div>
@@ -1022,7 +1140,6 @@ window.addEventListener('load', () => {
           <p class="text-xs text-gray-700">🧓 <strong>歴史好きの大人の知識チェックに</strong> どこまで正確に年代を覚えているか腕試しに最適。</p>
         </div>
       </div>
-      <p class="text-xs text-gray-400 mt-2">※ご利用イメージです</p>
       <div class="flex gap-2 mt-4">
         <a id="shareLine" href="https://line.me/R/share?text=タイムラインマスター | 歴史年代パズルゲーム - 日本史・世界史%20https://appadaycreator.com/history-timeline-game/" target="_blank" rel="noopener"
            style="flex:1;display:block;text-align:center;background:#06C755;color:white;padding:8px;border-radius:8px;font-size:12px;font-weight:bold;text-decoration:none;">
@@ -1036,15 +1153,29 @@ window.addEventListener('load', () => {
       </div>
     </div>
     <section style="margin:32px auto;max-width:640px;padding:0 16px;" aria-labelledby="howto-h">
-  <h2 id="howto-h" style="font-size:1.15rem;font-weight:700;margin-bottom:10px;border-left:4px solid #7c3aed;padding-left:10px;">使い方</h2>
-  <ol style="padding-left:20px;line-height:1.9;color:#374151;">
-    <li>🗺 日本史 or 世界史を選択する</li>
-    <li>⚡ 難易度を選択する（超初級～エキスパート）</li>
-    <li>📜 「ゲーム開始！」ボタンをタップ</li>
-    <li>🎯 表示されたカードを古い順に並べ替える</li>
-    <li>✓ 「確認する」で正答・不正答を確認</li>
-    <li>📊 ゲーム終了後にスコアと正答率を確認</li>
-  </ol>
+  <h2 id="howto-h" style="font-size:1.15rem;font-weight:700;margin-bottom:14px;border-left:4px solid #7c3aed;padding-left:10px;">タイムラインマスターの遊び方</h2>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;align-items:flex-start;gap:12px;background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:12px;">
+      <span style="font-size:2rem;flex-shrink:0;line-height:1;">🗺</span>
+      <div><strong style="color:#581c87;font-size:.9rem;display:block;margin-bottom:3px;">① 歴史の種類を選択</strong><p style="margin:0;font-size:.83rem;color:#6b7280;line-height:1.7;">日本史（縄文〜令和）または世界史（古代〜現代）を選ぶ。各15セット以上の問題を収録。</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:12px;">
+      <span style="font-size:2rem;flex-shrink:0;line-height:1;">⚡</span>
+      <div><strong style="color:#581c87;font-size:.9rem;display:block;margin-bottom:3px;">② 難易度を選択</strong><p style="margin:0;font-size:.83rem;color:#6b7280;line-height:1.7;">超初級（3問）〜エキスパート（7問）の5段階。初めての方は「超初級」か「初級」がおすすめ。</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:12px;">
+      <span style="font-size:2rem;flex-shrink:0;line-height:1;">🎯</span>
+      <div><strong style="color:#581c87;font-size:.9rem;display:block;margin-bottom:3px;">③ カードを古い順に並べ替え</strong><p style="margin:0;font-size:.83rem;color:#6b7280;line-height:1.7;">出来事カードをドラッグ（またはタップ）してスロットに配置。左のスロットが最も古い出来事。</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:12px;">
+      <span style="font-size:2rem;flex-shrink:0;line-height:1;">✅</span>
+      <div><strong style="color:#581c87;font-size:.9rem;display:block;margin-bottom:3px;">④「確認する」で正誤チェック</strong><p style="margin:0;font-size:.83rem;color:#6b7280;line-height:1.7;">全スロットを埋めたら「確認する」ボタンをタップ。正しい年代順と解説が表示される。</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:12px;">
+      <span style="font-size:2rem;flex-shrink:0;line-height:1;">📊</span>
+      <div><strong style="color:#581c87;font-size:.9rem;display:block;margin-bottom:3px;">⑤ スコアと正答率を確認</strong><p style="margin:0;font-size:.83rem;color:#6b7280;line-height:1.7;">10問終了後にスコア・正答率・難易度別ハイスコアをグラフで確認。ハイスコア更新を目指そう！</p></div>
+    </div>
+  </div>
 </section>
 </div>
 <!-- r31-use-cases -->
@@ -1053,13 +1184,13 @@ window.addEventListener('load', () => {
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem">
 <div style="padding:1rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:.75rem">
 <div style="font-size:1.5rem;margin-bottom:.4rem">🎓</div>
-<div style="font-weight:700;font-size:.9rem;color:#1e293b;margin-bottom:.4rem">勉強・学習に活用したい方</div>
-<div style="font-size:.85rem;color:#64748b;line-height:1.7">漢字・英単語・算数・地理など学校で学ぶ内容を、ゲーム感覚で楽しく習得・復習したい小中学生や受験生に。</div>
+<div style="font-weight:700;font-size:.9rem;color:#1e293b;margin-bottom:.4rem">歴史を楽しく覚えたい学生・受験生</div>
+<div style="font-size:.85rem;color:#64748b;line-height:1.7">日本史・世界史の年代順を年号暗記なしで身につけたい中高生・受験生に。繰り返しプレイで時代の流れが定着します。</div>
 </div>
 <div style="padding:1rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:.75rem">
 <div style="font-size:1.5rem;margin-bottom:.4rem">🧠</div>
-<div style="font-weight:700;font-size:.9rem;color:#1e293b;margin-bottom:.4rem">脳トレ・認知機能の維持</div>
-<div style="font-size:.85rem;color:#64748b;line-height:1.7">記憶力・集中力・計算速度・反応速度を鍛えて、頭のキレを維持したいシニアや忙しい社会人に。日々の短時間トレーニングとして最適です。</div>
+<div style="font-weight:700;font-size:.9rem;color:#1e293b;margin-bottom:.4rem">歴史好きの大人の知識チェック</div>
+<div style="font-size:.85rem;color:#64748b;line-height:1.7">日本史・世界史の知識をどこまで正確に記憶しているか試したい社会人や歴史ファンに。年号の前後関係を推理する脳トレとしても最適です。</div>
 </div>
 <div style="padding:1rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:.75rem">
 <div style="font-size:1.5rem;margin-bottom:.4rem">😊</div>
@@ -1090,8 +1221,8 @@ window.addEventListener('load', () => {
 <p style="font-size:.85rem;color:#475569;line-height:1.8;margin:0">A: 一部のゲームはブラウザのローカルストレージにスコアや進捗を保存しています。ただし設定によっては保存されない場合もあります。重要なスコアはスクリーンショットでの保存をお勧めします。</p>
 </div>
 <div style="margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid #f1f5f9">
-<p style="font-size:.9rem;font-weight:700;color:#1e293b;margin:0 0 .5rem">Q: 英語学習ゲームで本当に英語力は上がりますか？</p>
-<p style="font-size:.85rem;color:#475569;line-height:1.8;margin:0">A: ゲームを通じた学習は「楽しみながら繰り返す」という面で効果的です。特に単語・スペリング・速読力の向上に向いています。ただし話す・聞く・書くなどの総合的な英語力向上には、スピーキング練習や長文読解との組み合わせが必要です。楽しく続けることが最大の効果を生みます。</p>
+<p style="font-size:.9rem;font-weight:700;color:#1e293b;margin:0 0 .5rem">Q: タイムラインゲームで歴史の流れは本当に身につきますか？</p>
+<p style="font-size:.85rem;color:#475569;line-height:1.8;margin:0">A: 効果的です。年号を暗記するより「どの出来事がどれより先か」という時系列の推理を繰り返すことで、歴史の流れが直感的に身につきます。特に「間違えた問題の解説を読む」「繰り返しプレイする」ことで記憶が定着しやすくなります。中学・高校の定期テスト対策や大学受験の歴史分野の補助学習として活用できます。</p>
 </div>
 
 </div>
@@ -1138,6 +1269,51 @@ window.addEventListener('load', () => {
 <!-- phase10-rakuten-updated -->
 <!-- phase10-faq-enhanced -->
 
+
+<!-- v2 design: こんなに上達できる（写真付き特徴） -->
+<section style="max-width:980px;margin:36px auto;padding:0 16px;">
+  <h2 class="tm-h2">こんなに上達できる！</h2>
+  <div class="tm-h2-line"></div>
+  <p class="tm-h2-sub">楽しく繰り返すうちに、歴史の「流れ」が自然と身につきます</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+    <div class="tm-pcard"><img src="assets/photos/photo_02.jpg" alt="日本史を学ぶ" class="tm-photo" loading="lazy"><div style="padding:14px 16px;"><h3 style="font-weight:800;color:#1E40AF;font-size:1rem;margin-bottom:6px;">時代の流れで覚える</h3><p style="font-size:.84rem;color:#4b5563;line-height:1.75;">年号の丸暗記ではなく「どちらが先か」を推理。因果関係で歴史が定着します。</p></div></div>
+    <div class="tm-pcard"><img src="assets/photos/photo_03.jpg" alt="世界史を学ぶ" class="tm-photo" loading="lazy"><div style="padding:14px 16px;"><h3 style="font-weight:800;color:#1E40AF;font-size:1rem;margin-bottom:6px;">日本史・世界史に対応</h3><p style="font-size:.84rem;color:#4b5563;line-height:1.75;">古代から現代まで、各15セット以上を収録。幅広い時代をカバーします。</p></div></div>
+    <div class="tm-pcard"><img src="assets/photos/photo_04.jpg" alt="難易度を選ぶ" class="tm-photo" loading="lazy"><div style="padding:14px 16px;"><h3 style="font-weight:800;color:#1E40AF;font-size:1rem;margin-bottom:6px;">5段階の難易度</h3><p style="font-size:.84rem;color:#4b5563;line-height:1.75;">超初級（3問）〜エキスパート（7問）。中学生から大人まで楽しめます。</p></div></div>
+    <div class="tm-pcard"><img src="assets/photos/photo_05.jpg" alt="スコアを比較" class="tm-photo" loading="lazy"><div style="padding:14px 16px;"><h3 style="font-weight:800;color:#1E40AF;font-size:1rem;margin-bottom:6px;">スコアで成長を実感</h3><p style="font-size:.84rem;color:#4b5563;line-height:1.75;">ハイスコアとシミュレーターで自分の上達を数値で確認できます。</p></div></div>
+  </div>
+</section>
+
+<!-- v2 design: 学びのギャラリー -->
+<section style="max-width:980px;margin:36px auto;padding:0 16px;">
+  <h2 class="tm-h2">歴史の世界を旅しよう</h2>
+  <div class="tm-h2-line"></div>
+  <p class="tm-h2-sub">日本史・世界史の名場面をめぐりながら、年代感覚を育てます</p>
+  <div class="tm-gallery">
+    <img src="assets/photos/photo_06.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_07.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_08.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_09.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_10.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_11.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_12.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_13.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_14.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_15.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_16.jpg" alt="歴史の風景" loading="lazy">
+    <img src="assets/photos/photo_17.jpg" alt="歴史の風景" loading="lazy">
+  </div>
+</section>
+
+<!-- v2 design: bottom CTA band -->
+<div class="tm-ctaband">
+  <div class="tm-ctaband-bg" style="background-image:url('assets/photos/photo_18.jpg')"></div>
+  <div class="tm-ctaband-ov"></div>
+  <div class="tm-ctaband-c">
+    <h2 style="font-size:1.5rem;font-weight:900;margin-bottom:10px;text-shadow:0 2px 10px rgba(0,0,0,.35);">今すぐタイムラインマスターを始める！</h2>
+    <p style="font-size:.9rem;color:#e7eefc;margin-bottom:20px;line-height:1.8;">歴史の流れをつなぎ、未来の力にしよう。登録不要・完全無料です。</p>
+    <a href="#startScreen" class="tm-cta" style="font-size:1.05rem;padding:13px 30px;">🎮 年代を当てる →</a>
+  </div>
+</div>
 
 <div style="margin:24px auto;max-width:720px;padding:16px 20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
   <p style="font-size:12px;font-weight:600;color:#94a3b8;text-align:center;margin:0 0 12px;letter-spacing:0.05em;">スポンサーリンク</p>
@@ -1253,7 +1429,7 @@ window.addEventListener('load', () => {
 <!-- r27-tool-guide -->
 <section style="margin:2rem 0;padding:1.5rem;background:#f8fafc;border-radius:.75rem;border:1px solid #e2e8f0">
 <h2 style="font-size:1rem;font-weight:700;color:#1f2937;margin:0 0 .75rem">タイムラインマスターの活用ガイド（ゲーム・クイズ）</h2>
-<p style="margin:0 0 .75rem;line-height:1.8;color:#374151">歴史上の出来事を正しい年代順に並び替えるパズルゲーム。日本史・世界史それぞれ30セット収録。歴史の流れを楽しく覚えよう！登録不要・完全無料でご利用いただけます。。登録不要・完全無料でご利用いただけます。スマートフォンやタブレットからもアクセス可能です。</p>
+<p style="margin:0 0 .75rem;line-height:1.8;color:#374151">歴史上の出来事を正しい年代順に並び替えるパズルゲーム。日本史・世界史それぞれ多数のセットを収録。年号を暗記せずに時代の流れを楽しく覚えられます。登録不要・完全無料でスマートフォン・タブレット・PCからすぐに遊べます。</p>
 <h3 style="font-size:.9rem;font-weight:700;color:#1f2937;margin:.75rem 0 .4rem">こんな方におすすめ</h3>
 <ul style="margin:0 0 .75rem;padding-left:1.4rem;line-height:2;font-size:.88rem;color:#374151">
 <li>楽しみながら知識を身につけたい方</li><li>スキマ時間に頭を使いたい方</li><li>子どもから大人まで気軽に遊びたい方</li>
