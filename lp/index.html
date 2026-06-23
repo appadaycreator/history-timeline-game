@@ -51,14 +51,20 @@ a{text-decoration:none;color:inherit;}
 .btn-b:hover{background:var(--pd);transform:translateY(-2px);}
 .sec{padding:54px 0;}
 .sec-h{text-align:center;font-size:1.7rem;font-weight:900;color:var(--p);margin-bottom:6px;letter-spacing:.01em;}
-.sec-line{width:60px;height:4px;background:var(--a);border-radius:99px;margin:10px auto 14px;}
+.sec-line{position:relative;width:60px;height:4px;background:var(--a);border-radius:99px;margin:10px auto 14px;}
+.sec-line:before,.sec-line:after{content:"";position:absolute;top:50%;width:7px;height:7px;border-radius:50%;background:var(--a);transform:translateY(-50%);box-shadow:0 0 0 3px rgba(234,106,12,.18);}
+.sec-line:before{left:-14px;}
+.sec-line:after{right:-14px;}
 .sec-sub{text-align:center;color:#6b7280;font-size:.92rem;margin-bottom:34px;}
 
 /* Header */
 header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid #eceae3;box-shadow:0 1px 10px rgba(30,64,175,.06);}
 .nav-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:11px 18px;gap:12px;}
-.logo{display:flex;align-items:center;gap:9px;font-weight:900;color:var(--p);font-size:1.12rem;}
-.logo img{width:32px;height:32px;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--p);font-size:1.12rem;}
+.logo img{width:34px;height:34px;}
+.logo .lt{display:flex;flex-direction:column;line-height:1.1;}
+.logo .lt small{font-size:.6rem;font-weight:700;color:#94a3b8;letter-spacing:.08em;}
+@media(max-width:520px){.logo .lt small{display:none;}}
 .nav-links{display:flex;gap:22px;align-items:center;}
 .nav-links a{font-size:.88rem;font-weight:700;color:#374151;}
 .nav-links a:hover{color:var(--p);}
@@ -68,8 +74,10 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);bac
 
 /* Hero */
 .hero{position:relative;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background-image:url('../assets/photos/photo_01.jpg');background-size:cover;background-position:center;}
-.hero-ov{position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,16,42,.95) 0%,rgba(19,38,94,.9) 46%,rgba(27,58,138,.62) 100%);}
+.hero-bg{position:absolute;inset:0;background-image:url('../assets/photos/photo_01.jpg');background-size:cover;background-position:center;transform:scale(1.04);}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,16,42,.86) 0%,rgba(13,26,64,.7) 44%,rgba(27,58,138,.34) 100%);}
+.hero-ov2{position:absolute;inset:0;background:radial-gradient(120% 100% at 18% 30%,rgba(0,0,0,.32),transparent 60%);pointer-events:none;}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--a),var(--al),var(--a));z-index:2;}
 .hero-in{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;padding:64px 18px;max-width:1080px;margin:0 auto;}
 .hero-txt{color:#fff;}
 .hero-badge{display:inline-block;background:rgba(217,119,6,.95);color:#fff;font-size:.74rem;font-weight:800;padding:5px 14px;border-radius:99px;margin-bottom:16px;letter-spacing:.04em;}
@@ -215,7 +223,7 @@ footer .cp{font-size:.76rem;color:#7c89b3;margin-top:10px;}
 <!-- Header -->
 <header class="nav">
   <div class="nav-in">
-    <a href="#top" class="logo"><img src="../assets/icons/split/01-08.png" alt="">タイムラインマスター</a>
+    <a href="#top" class="logo"><img src="../assets/icons/split/01-08.png" alt=""><span class="lt">タイムラインマスター<small>日本史・世界史 年代パズル</small></span></a>
     <nav class="nav-links" aria-label="メインメニュー">
       <a href="#problem">悩み</a>
       <a href="#features">主な特徴</a>
@@ -231,6 +239,7 @@ footer .cp{font-size:.76rem;color:#7c89b3;margin-top:10px;}
 <section class="hero" id="top">
   <div class="hero-bg"></div>
   <div class="hero-ov"></div>
+  <div class="hero-ov2"></div>
   <div class="hero-in">
     <div class="hero-txt">
       <span class="hero-badge">📜 無料・登録不要・歴史学習パズル</span>
