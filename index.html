@@ -112,7 +112,7 @@ button:focus-visible, .diff-btn:focus-visible, .hist-btn:focus-visible {
 ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!important;height:0!important}
 
 /* ===== v2 Faithful Design Theme (brand: #1E40AF / #D97706, serif) ===== */
-:root{--tm-primary:#1E40AF;--tm-primary-d:#1E3A8A;--tm-accent:#D97706;--tm-accent-d:#B45309;--tm-ink:#1f2937;--tm-paper:#f7f4ec;}
+:root{--tm-primary:#1B3A8A;--tm-primary-d:#13265e;--tm-accent:#EA6A0C;--tm-accent-d:#C2530B;--tm-accent-l:#F59E0B;--tm-ink:#1f2937;--tm-paper:#f7f4ec;}
 body{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;}
 .tm-serif{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;}
 /* Top navigation bar */
@@ -131,10 +131,13 @@ body{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",ser
 /* Photo hero */
 .tm-hero{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 12px 36px rgba(30,58,138,.25);margin-bottom:22px;min-height:320px;display:flex;align-items:center;}
 .tm-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-.tm-hero-ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(15,30,75,.86) 0%,rgba(30,64,175,.62) 55%,rgba(30,64,175,.22) 100%);}
+.tm-hero-ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,16,42,.92) 0%,rgba(19,38,94,.68) 55%,rgba(27,58,138,.28) 100%);}
 .tm-hero-c{position:relative;padding:34px 26px;color:#fff;}
 .tm-hero-c h1{font-size:1.85rem;line-height:1.35;font-weight:900;margin-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,.4);}
-.tm-hero-c .accent{color:#FCD34D;}
+.tm-hero-c .accent{color:var(--tm-accent-l);}
+.tm-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+.tm-chips span{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#eaf0ff;font-size:.74rem;font-weight:700;padding:5px 12px;border-radius:99px;}
+.tm-chips span b{color:var(--tm-accent-l);font-weight:900;}
 .tm-badge{display:inline-block;background:rgba(217,119,6,.95);color:#fff;font-size:.72rem;font-weight:800;padding:4px 12px;border-radius:99px;margin-bottom:12px;letter-spacing:.04em;}
 /* Section heading */
 .tm-h2{text-align:center;font-size:1.4rem;font-weight:900;color:var(--tm-primary);margin:6px 0 4px;}
@@ -142,14 +145,14 @@ body{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",ser
 .tm-h2-line{width:54px;height:4px;background:var(--tm-accent);border-radius:99px;margin:8px auto 14px;}
 /* Photo cards */
 .tm-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
-.tm-pcard{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.09);transition:transform .15s;}
-.tm-pcard:hover{transform:translateY(-3px);}
+.tm-pcard{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 10px 28px rgba(19,38,94,.1);transition:transform .15s,box-shadow .15s;border:1px solid #e9edf7;border-top:3px solid var(--tm-accent);}
+.tm-pcard:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(19,38,94,.16);}
 .tm-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
 .tm-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);}
 /* Bottom CTA band */
 .tm-ctaband{position:relative;border-radius:18px;overflow:hidden;margin:30px auto;max-width:760px;}
 .tm-ctaband-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-.tm-ctaband-ov{position:absolute;inset:0;background:linear-gradient(120deg,rgba(30,58,138,.92),rgba(30,64,175,.78));}
+.tm-ctaband-ov{position:absolute;inset:0;background:linear-gradient(120deg,rgba(8,16,42,.93),rgba(27,58,138,.8));}
 .tm-ctaband-c{position:relative;padding:40px 24px;text-align:center;color:#fff;}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"タイムラインマスターのスコアは保存されますか？","acceptedAnswer":{"@type":"Answer","text":"スコアはブラウザのローカルストレージに保存されます。同じブラウザを使う限りハイスコアが保持されます。ブラウザのデータを削除するとリセットされます。"}},{"@type":"Question","name":"難易度を自由に選べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、ゲーム開始前に5段階の難易度から選択できます。超初級（3問）～エキスパート（7問）まで選べます。"}},{"@type":"Question","name":"日本史と世界史の両方で遊べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、ゲーム開始前に日本史または世界史を選択できます。各24セットの問題が用意されています。"}},{"@type":"Question","name":"スマートフォンで遊べますか？","acceptedAnswer":{"@type":"Answer","text":"はい、スマートフォン・タブレット・PCのすべてでご利用いただけます。ドラッグ&ドロップまたはタップで操作できます。"}},{"@type":"Question","name":"スコアシミュレーター機能とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"異なる難易度と正答率での推定スコアを計算できる機能です。「もし難易度ハードで70%の正答率なら何点？」のようなシミュレーションが可能です。"}}]}</script>
@@ -259,6 +262,12 @@ window.addEventListener('unhandledrejection',function(e){console.warn('Rejection
       <div class="flex gap-3 flex-wrap">
         <a href="#startScreen" class="tm-cta">🎮 年代を当てる →</a>
         <a href="#howto-h" class="tm-cta tm-cta-blue">遊び方を見る</a>
+      </div>
+      <div class="tm-chips">
+        <span><b>★4.8</b> 学習満足度</span>
+        <span><b>50,000+</b> プレイ実績</span>
+        <span>⚡ <b>1分</b>でスタート</span>
+        <span>💴 完全<b>無料</b></span>
       </div>
     </div>
   </div>
